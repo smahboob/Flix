@@ -30,4 +30,4 @@ Flix is an app that allows users to browse movies from the [The Movie Database A
 
 
 ### Notes
-Describe any challenges encountered while building the app.
+Layout Constrainst were the most challenging part of the assingment. However, I learned to manage display on different screen sizes and different screen orientations without overalapping or distorting any componenets of the app. 
