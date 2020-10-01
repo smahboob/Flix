@@ -3,7 +3,6 @@
 //  Flix
 //
 //  Created by Saad Mahboob on 24/09/2020.
-//
 
 import UIKit
 import AlamofireImage
@@ -62,5 +61,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         task.resume()
     }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        //Find the movie
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)!
+        let movieSelected = movies[indexPath.row]
+        
+            
+        //Send the movie detail
+        
+        let detailViewController = segue.destination as! MovieDetailViewController
+        detailViewController.movie = movieSelected
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+    }
 }
-
