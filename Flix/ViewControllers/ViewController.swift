@@ -7,27 +7,71 @@
 import UIKit
 import AlamofireImage
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate{
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     var movies = [[String:Any]]() //create a new array of dictionary
+    var filteredMovies = [[String:Any]]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        searchBar.delegate = self
+        searchBar.endEditing(true)
         requestData()
     }
     
+    //functionality of being able to search movies.
+    //below 3 functions are to reisgn the keyboard when any one of the following happens
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchBar.endEditing(true)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
+    
+    //this function filters data and adds the searched movies into a new list to load on table
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        filteredMovies = []
+        
+        if (searchText == "" ){
+            filteredMovies = movies
+        }
+        else{
+            for movie in movies{
+                let title = movie["title"] as! String
+                if( title.lowercased().contains(searchText.lowercased()) ){
+                    filteredMovies.append(movie)
+                }
+            }
+        }
+        
+        self.tableView.reloadData()
+        
+    }
+    
+    //these are the table view functions
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return filteredMovies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell") as! MovieCell
         
-        let movie = movies[indexPath.row]
+        let movie = filteredMovies[indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
         let baseURL = "https://image.tmdb.org/t/p/w185/"
@@ -41,6 +85,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
     }
     
+    
+    //this function is calling the api and loading the movies information from the endpoint
     func requestData(){
         
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
@@ -56,6 +102,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let typeCheck = type(of: dataDictionary)
             print("type \(typeCheck)")
                 self.movies = dataDictionary["results"] as! [[String : Any]]
+                filteredMovies = movies
                 self.tableView.reloadData()
            }
         }
@@ -64,6 +111,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
+    //this is passing the movies information to the detailed view controller
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         //Find the movie
@@ -71,7 +119,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let indexPath = tableView.indexPath(for: cell)!
         let movieSelected = movies[indexPath.row]
         
-            
         //Send the movie detail
         
         let detailViewController = segue.destination as! MovieDetailViewController
