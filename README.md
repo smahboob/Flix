@@ -19,7 +19,7 @@ Flix is an app that allows users to browse movies from the [The Movie Database A
 <img src="http://g.recordit.co/av5qqkvp0G.gif" width=250><br>
 
 ### Notes
-Describe any challenges encountered while building the app.
+Displaying the trailer was bit of a challenge. Learned to use SafariServices and SafariViewController within the IOS apps.
 
 ---
 
