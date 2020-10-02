@@ -13,10 +13,16 @@ Flix is an app that allows users to browse movies from the [The Movie Database A
 #### BONUS
 - [x] (2pts) User can tap a poster in the collection view to see a detail screen of that movie.
 - [x] (2pts) In the detail view, when the user taps the poster, a new screen is presented modally where they can view the trailer.
+- [x]  Added a search bar in the now playing tab, where user can search and get filtered results for movies.
 
 ### App Walkthrough GIF
 
 <img src="http://g.recordit.co/av5qqkvp0G.gif" width=250><br>
+
+#### SearchBar Walkthrough GIF
+
+<img src="http://g.recordit.co/S0YXNFtQpW.gif" width=250><br>
+
 
 ### Notes
 Displaying the trailer was bit of a challenge. Learned to use SafariServices and SafariViewController within the IOS apps.
