@@ -15,14 +15,15 @@ class SuperheroDetailViewController: UIViewController {
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
-    var movie: [String:Any]!
     
-
+    var movie: [String:Any]!
     var trailerMovie = [[String:Any]]()
     var id: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        profilePhoto.layer.borderWidth = 1.5
+        profilePhoto.layer.borderColor = UIColor.white.cgColor
         loadSupeHeroData()
     }
     
