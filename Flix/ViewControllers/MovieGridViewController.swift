@@ -75,7 +75,6 @@ class MovieGridViewController: UIViewController, UICollectionViewDelegate, UICol
         let cell = sender as! UICollectionViewCell
         let indexPath = collectionView.indexPath(for: cell)!
         let movieSelected = movies[indexPath.row]
-        
                     
         let detailViewController = segue.destination as! SuperheroDetailViewController
         detailViewController.movie = movieSelected

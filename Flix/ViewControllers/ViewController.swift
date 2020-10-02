@@ -53,7 +53,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
            }
            else if let data = data {
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                            
+            let typeCheck = type(of: dataDictionary)
+            print("type \(typeCheck)")
                 self.movies = dataDictionary["results"] as! [[String : Any]]
                 self.tableView.reloadData()
            }
